@@ -1,0 +1,21 @@
+{% extends "./base.html" %}
+
+{% block title %}Article_{{article.article_id}}{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="blog-header">
+        <h3>{{ article.title}}</h3>
+    </div>
+        <p class="blog-post-meta"> {{article.timestamp | date:"Y-m-d  G:i"}} by {{article.author}}</p>
+        <p>{{ article.body }}</p>
+        <p>原链: <a href="http://bbs.nankai.edu.cn/group/article/{{article.article_id}}" target="_blank">http://bbs.nankai.edu.cn/group/article/{{article.article_id}}</a></p>
+</div>
+{% for comment in comments %}
+<div class="container">
+    <HR color=blue>
+    <p>{{comment.author}}  {{comment.timestamp | date:"Y-m-d G:i"}}</p>
+    <p>{{comment.comment_text}}</p>
+</div>
+{% endfor %}
+{% endblock %}

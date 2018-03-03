@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>{% block title %}My amazing site{% endblock %}</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'nkbbs/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{% static 'nkbbs/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'nkbbs/blog.css' %}" rel="stylesheet">
+    <style>
+     span.highlighted {
+         color: red;
+     }
+    </style>
+</head>
+
+<body>
+   <!--nav-bar-->
+   <div id='nav_bar' class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+            <a class="blog-nav-item active" href="{% url 'nkbbs:index' %}">Home</a>
+            <a class="blog-nav-item" href="{% url 'nkbbs:article_list' %}">Articles</a>
+            <a class="blog-nav-item" href="{% url 'haystack_search' %}">Search</a>
+        </nav>
+      </div>
+    </div>
+
+    <div id='content'>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

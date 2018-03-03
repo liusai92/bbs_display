@@ -1,0 +1,65 @@
+{% extends './base.html' %}
+{% load humanize %}
+
+{% block title%}Article List{% endblock %}
+
+{% block content%}
+
+<div class="container">
+    <div class="blog-header">
+        <h2>Article List</h2>
+    </div>
+    <table class="table">
+        <thead>
+              <tr>
+                  <th>Article ID</th>
+                  <th>TITLE</th>
+                  <th>AUTHOR</th>
+                  <th>PUBLISH DATE</th>
+              </tr>
+        </thead>
+        <tbody>
+                    {% for article in articles %}
+                    <tr>
+                        <td>{{article.article_id | intcomma}}</td>
+                        <td><a href="{%url 'nkbbs:article_detail' article.article_id%}" target="_blank">{{ article.title }}</a></td>
+                        <td>{{article.author}}</td>
+                        <td>{{article.timestamp|date:"Y-m-d  G:i"}}</td>
+                    </tr>
+                    {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <div class="pagination">
+        <span class="step-links">
+            <tr>
+                <td>{% if articles.has_previous %}
+                <a href="?page={{ articles.previous_page_number }}">上一页</a>
+                {% endif %}</td>
+
+                <td>{% if articles.has_next %}
+                <a href="?page={{ articles.next_page_number }}">下一页</a>
+                {% endif %}</td>
+
+                <td><span class="current">
+                Page {{ articles.number }} of {{ articles.paginator.num_pages }}.
+                    </span></td>
+
+                    <td><form action="{%url 'nkbbs:article_list' %}" method="get">
+                跳转至: <input type="number" max={{articles.paginator.num_pages}} min=1 name="page" />
+                  <input type="submit" value="Go" />
+
+                       </form></td>
+                            <!--submit form-->
+                            <form action="{%url 'nkbbs:result' %}" method="post" target="_blank">
+                              {% csrf_token %}
+                              <tr>Article ID: <input type="number" name="article_id" />
+                                  <input type="submit" value="Go" /></tr>
+                        </form>
+            </tr>
+        </span>
+    </div>
+</div>
+{% endblock %}

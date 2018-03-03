@@ -1,0 +1,37 @@
+{% extends './base.html' %}
+{% load humanize %}
+{% block title %}NK BBS MIRROR{% endblock %}
+{% block content %}
+
+<div class="container">
+{% if articles %}
+    <div class="blog-header">
+        <h2>Latest 20 articles</h2>
+    </div>
+    <table class="table">
+        <thead>
+              <tr>
+                  <th>Article ID</th>
+                  <th>TITLE</th>
+                  <th>AUTHOR</th>
+                  <th>PUBLISH DATE</th>
+              </tr>
+        </thead>
+        <tbody>
+                    {% for article in articles %}
+                    <tr>
+                        <td>{{article.article_id | intcomma}}</td>
+                        <td><a href="{%url 'nkbbs:article_detail' article.article_id%}" target="_blank">{{ article.title }}</a></td>
+                        <td>{{article.author}}</td>
+                        <td>{{article.timestamp|date:"Y-m-d  G:i"}}</td>
+                    </tr>
+                    {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No articles are available.</p>
+{% endif %}
+</div>
+<footer class="blog-footer">
+</footer>
+{% endblock %}
